@@ -1,0 +1,96 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href='{% static 'css/base.css' %}'>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href='{% static 'syntaxhighlighter/styles/shCoreDefault.css' %}'/>
+    
+    <!--script>tinymce.init({ selector:'textarea' });</script>-->
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery/3.0.0-alpha1/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery/3.0.0-alpha1/jquery.js"></script>
+    <script src="{% static 'js/scrollup/jquery.scrollUp.js' %}"></script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+    <script src="{% static 'js/base.js' %}"></script>
+  
+    <script src="{% static 'syntaxhighlighter/scripts/shCore.js' %}"></script>
+    <script type="text/javascript">SyntaxHighlighter.all();</script>
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <script class="javascript" src='{% static 'syntaxhighlighter/scripts/shBrushJScript.js' %}'></script>
+<script class="javascript" src="{% static 'syntaxhighlighter/scripts/shBrushBash.js' %}"></script>
+<script class="javascript" src="{% static 'syntaxhighlighter/scripts/shBrushPhp.js' %}"></script>
+<script class="javascript" src="{% static 'syntaxhighlighter/scripts/shBrushJava.js' %}"></script>
+<script class="javascript" src="{% static 'syntaxhighlighter/scripts/shBrushSql.js' %}"></script>
+<script class="javascript" src="{% static 'syntaxhighlighter/scripts/shBrushXml.js' %}"></script>
+<script class="javascript" src="{% static 'syntaxhighlighter/scripts/shBrushPython.js' %}"></script>
+<script class="javascript" src="{% static 'syntaxhighlighter/scripts/shBrushCss.js' %}"></script>
+<script class="javascript" src="{% static 'syntaxhighlighter/scripts/shBrushCpp.js' %}"></script>
+    <div class="container-fluid">
+        <nav class="navbar-collapse navbar navbar-default navbar-fixed-top container">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+                    <a class="navbar-brand" href="{% url 'index' %}">JH</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+        <li><a href="{% url 'index' %}">首页 <span class="sr-only">(current)</span></a></li>
+		<li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">文章分类 <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    {% for x in categories %}
+                        <li><a href="{{ x.get_absolute_url }}">{{ x.name }}</a></li>
+                    {% endfor %}
+                </ul>
+        </li>
+        <li><a href="{% url 'message' %}">留言</a></li>
+        <li><a href="{% url 'me' %}">关于我</a></li>
+		<li><a href="{% url 'archive' %}">文章归档</a></li>
+      </ul>
+	  
+      <form class="navbar-form navbar-right" role="search" action="/search/">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="" name="search">
+        </div>
+        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>搜索</button>
+      </form>
+                </div>
+            </div>
+        </nav>
+       
+       <div class="page-header">
+            <div class="row">
+                <div class="container-fluid">
+					<!--<img src="/static/image/dfz.jpg" class="img-responsive" alt="Responsive image">-->
+                </div>
+            </div>
+        </div>
+        <div class="row" id="bs-example-navbar-collapse-1">
+            {% include 'left.html' %}
+             <div class="col-md-9">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+<hr>
+</html>
+

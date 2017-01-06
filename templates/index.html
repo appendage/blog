@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}
+    {% if is_category %}
+    {{ category }}|{{ site_name }}
+    {% elif is_tag %}
+        {{ tag }}|{{ site_name }}
+    {% elif is_search %}
+        {{ title }}|{{ site_name }}
+    {% else %}
+        {{ site_name }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if article_list %}
+        {% for content in article_list %}
+            <div class="panel">
+                <div class="panel-title text-center">    <!--文章标题-->
+                    <a href="{{ content.get_absolute_url }}"><h2>{{ content.title }}</h2></a>
+                </div>
+                <div class="text-center">        <!--文章标签和时间-->
+                    {% for tag in content.tag.all %}
+                        <a href="{{ tag.get_absolute_url }}"> <span class="label label-default glyphicon glyphicon-tag">{{ tag }}</span> </a>
+                    {% endfor %}
+                    <span class="label label-default glyphicon glyphicon-calendar"> {{ content.date_publish | date:"SHORT_DATE_FORMAT" }}</span>
+                </div>
+                {% autoescape off %}
+                <div class="panel-body">  <!--文章内容-->
+                    {{ content.content | safe | truncatewords_html:20 }}<a class="label label-default" href="{% url 'article_detail' content.title %}">阅读全文</a>
+                </div>
+                {% endautoescape %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="panel">
+            <div class="panel-heading navbar-default">
+                <h3 class="panel-title">暫无文章!</h3>
+            </div>
+            <div class="panel-body">
+                <p><center>
+                    <br>
+                
+                </center></p>
+                <br>
+                <br>
+            </div>
+        </div>
+    {% endif %}
+{% include 'page.html' %}
+{% endblock %}
