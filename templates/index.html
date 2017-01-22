@@ -26,7 +26,7 @@
                 </div>
                 {% autoescape off %}
                 <div class="panel-body">  <!--文章内容-->
-                    {{ content.content | safe | truncatewords_html:20 }}<a class="label label-default" href="{% url 'article_detail' content.title %}">阅读全文</a>
+                    {{ content.content | truncatechars_html:100 }}<a class="label label-default" href="{% url 'article_detail' content.title %}">阅读全文</a>
                 </div>
                 {% endautoescape %}
             </div>
